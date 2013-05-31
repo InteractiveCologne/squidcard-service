@@ -17,8 +17,9 @@ development:
   encoding: unicode
   database: squidcard-service_development
   pool: 5
-  username: squidcard-service
-  password:
+  host: localhost
+  username: root
+  password: devel
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -43,13 +44,6 @@ test:
   encoding: unicode
   database: squidcard-service_test
   pool: 5
-  username: squidcard-service
-  password:
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: squidcard-service_production
-  pool: 5
-  username: squidcard-service
-  password:
+  host: localhost
+  username: root
+  password: devel
