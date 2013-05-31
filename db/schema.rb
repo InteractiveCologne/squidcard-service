@@ -11,16 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531210027) do
+ActiveRecord::Schema.define(:version => 20130531211043) do
 
-  create_table "events", :primary_key => "event_key", :force => true do |t|
+  create_table "events", :force => true do |t|
     t.string   "key",                          :null => false
-    t.boolean  "card_id",    :default => true
+    t.string   "name",                         :null => false
+    t.boolean  "card_uid",   :default => true
     t.boolean  "resource",   :default => true
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
 
   add_index "events", ["key"], :name => "index_events_on_key", :unique => true
+
+  create_table "squid_cards", :primary_key => "uid", :force => true do |t|
+    t.string   "reference"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "squid_cards", ["reference"], :name => "index_squid_cards_on_reference"
+  add_index "squid_cards", ["uid"], :name => "index_squid_cards_on_uid", :unique => true
 
 end
