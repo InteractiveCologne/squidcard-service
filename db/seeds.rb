@@ -1,9 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Event.create! name: "Interactive Cologne", key: "SomethingReallyRandom", card_uid: true, resource: true, url: "http://localhost:3001/gallerie.json"
 
-Event.create name: "Interactive Cologne", key: "SomethingReallyRandom;)", card_uid: true, resource: true
+SquidCard.create! uid: "4931082332032128"
+SquidCard.create! uid: "4612867186"
