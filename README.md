@@ -1,3 +1,5 @@
 # Squidcard-Service
 
-Central Service for Squidcard-Usage
+Central Service for Squidcards
+
+#### More to come
