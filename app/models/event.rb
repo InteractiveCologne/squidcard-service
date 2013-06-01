@@ -28,12 +28,16 @@ class Event < ActiveRecord::Base
       options[:resource] = resource if self.resource
 
       # Do call the Event-Service here
-      response = self.class.send(method.to_sym, self.url, options)
+      begin
+        response = self.class.send(method.to_sym, self.url, options)
 
-      if response.code == 200
-        result = {response: response.body}
-      else
-        result = {errors: "Response from Webservice: #{response.code} - #{response.message}".strip!}
+        if response.code == 200
+          result = {response: response.body}
+        else
+          result = {errors: "Response from Webservice: #{response.code} - #{response.message}".strip!}
+        end
+      rescue Errno::ECONNREFUSED => e
+        result = {errors: "Connection to Webservice refused"}
       end
     else
       result = {errors: errors}
