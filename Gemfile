@@ -25,6 +25,12 @@ gem 'haml'
 gem 'twitter-bootstrap-rails'
 gem 'httparty'
 
+gem 'devise'
+gem 'cancan'
+gem 'will_paginate'
+
+gem 'quiet_assets', :group => :development
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

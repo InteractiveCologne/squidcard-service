@@ -1,0 +1,20 @@
+#form.event-form
+  = form_for @event do |f|
+    - unless @event.errors.blank?
+      .errors
+        %ul
+          - @event.errors.full_messages.each do |msg|
+            %li= msg
+
+    .input= f.text_field :name, placeholder: "Event-Name"
+    .input= f.text_field :url, placeholder: "Service-URL"
+    .input= f.select :method, %w[get post]
+    .input= f.select :format, %w[json xml]
+    .input
+      = f.check_box :resource
+      %span Benötigt die Resource
+    .input
+      = f.check_box :card_uid
+      %span Benötigt die Card-UID
+
+    .submit= f.submit @event.new_record? ? "Event erstellen" : "Änderungen speichern"

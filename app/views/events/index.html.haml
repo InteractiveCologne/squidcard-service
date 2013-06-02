@@ -1,0 +1,35 @@
+#events
+  %h1 Events
+
+  - unless @events.nil?
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th ID
+          %th Name
+          %th Event-key
+          %th Service-URL
+          %th Method
+          %th Format
+          %th Parameter
+          %th{colspan: 3}
+      %tbody
+      - @events.each do |event|
+        %tr
+          %td= event.id
+          %td= event.name
+          %td= event.key
+          %td= event.url
+          %td= event.method.upcase
+          %td= event.format.upcase
+          %td
+            - if event.card_uid
+              .param SquidCard-UID
+            - if event.resource
+              .param Resource
+          %td= link_to "Bearbeiten", edit_event_path(event)
+          %td= link_to "Löschen", event, method: :delete, confirm: "'#{event.name}' wirklich löschen?"
+  - else
+    Es wurden keine Events gefunden.
+
+  #blupp= link_to "Neues Event anlegen", :new_event

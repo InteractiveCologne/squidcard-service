@@ -1,11 +1,17 @@
 class Event < ActiveRecord::Base
   include HTTParty
-  attr_accessible :key, :card_uid, :resource, :name, :url, :method, :format
+
+  belongs_to :admin
+
+  attr_accessible :key, :card_uid, :resource, :name, :url, :method, :format, :admin
+
+  before_validation :create_event_key
 
   validates :key, presence: true, uniqueness: true
   validates :url, presence: true # No further URL-Checking. If someone messes that up, I guess he's doing it willingly ;)
   validates :method, presence: true, inclusion: { in: %w[get post put] }, allow_nil: true
   validates :format, presence: true, inclusion: { in: %w[json xml html] }, allow_nil: true
+  validates :admin, presence: true
 
   def checkin(card_uid, resource)
     errors = {}
@@ -44,5 +50,20 @@ class Event < ActiveRecord::Base
     end
 
     return result
+  end
+
+  protected
+
+  def create_event_key
+    hash =  [('a'..'z'),('A'..'Z'),(0..9)].map{|i| i.to_a}.flatten
+    while self.key.nil?
+      key  =  (0...40).map{ hash[rand(hash.length)] }.join
+      # Rails.logger.debug key.inspect
+      # Rails.logger.debug Event.where(key: key).count.inspect
+      self.key = key
+      # Rails.logger.debug self.key.inspect
+      # Rails.logger.debug self.key.nil?.inspect
+      self.key = key unless Event.where(key: key).count
+    end
   end
 end

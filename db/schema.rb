@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531211043) do
+ActiveRecord::Schema.define(:version => 20130602113506) do
+
+  create_table "admins", :force => true do |t|
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.integer  "failed_attempts",        :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "name",                                      :null => false
+    t.boolean  "superadmin",             :default => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
+  add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
   create_table "events", :force => true do |t|
     t.string   "key",        :limit => 40,                     :null => false
@@ -23,8 +40,10 @@ ActiveRecord::Schema.define(:version => 20130531211043) do
     t.string   "format",     :limit => 10, :default => "json", :null => false
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
+    t.integer  "admin_id",                                     :null => false
   end
 
+  add_index "events", ["admin_id"], :name => "index_events_on_admin_id"
   add_index "events", ["key"], :name => "index_events_on_key", :unique => true
 
   create_table "squid_cards", :force => true do |t|
