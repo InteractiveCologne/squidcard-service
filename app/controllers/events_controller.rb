@@ -24,6 +24,10 @@ class EventsController < ApplicationController
       format.json do
         render :json => {result: (response[:errors].blank? ? true : false), response: response}.to_json
       end
+      format.xml do
+        render :xml => {result: (response[:errors].blank? ? true : false), response: response}.to_xml
+      end
+      format.html {render :file => 'public/404.html', :status => :not_found, :layout => false}
     end
   end
 end
