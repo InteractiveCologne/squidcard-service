@@ -40,7 +40,7 @@ class Event < ActiveRecord::Base
         if response.code == 200
           result = {response: response.body}
         else
-          result = {errors: "Response from Webservice: #{response.code} - #{response.message}".strip!}
+          result = {errors: "Response from Webservice: #{response.code} - #{response.message}".strip}
         end
       rescue Errno::ECONNREFUSED => e
         result = {errors: "Connection to Webservice refused"}
@@ -48,6 +48,7 @@ class Event < ActiveRecord::Base
     else
       result = {errors: errors}
     end
+
 
     return result
   end
@@ -58,12 +59,9 @@ class Event < ActiveRecord::Base
     hash =  [('a'..'z'),('A'..'Z'),(0..9)].map{|i| i.to_a}.flatten
     while self.key.nil?
       key  =  (0...40).map{ hash[rand(hash.length)] }.join
-      # Rails.logger.debug key.inspect
-      # Rails.logger.debug Event.where(key: key).count.inspect
-      self.key = key
-      # Rails.logger.debug self.key.inspect
-      # Rails.logger.debug self.key.nil?.inspect
-      self.key = key unless Event.where(key: key).count
+      if Event.where(key: key).count == 0
+        self.key = key
+      end
     end
   end
 end
