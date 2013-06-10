@@ -46,14 +46,14 @@ ActiveRecord::Schema.define(:version => 20130602113506) do
   add_index "events", ["admin_id"], :name => "index_events_on_admin_id"
   add_index "events", ["key"], :name => "index_events_on_key", :unique => true
 
-  create_table "squid_cards", :force => true do |t|
+  create_table "yet_another_kards", :force => true do |t|
     t.string   "uid",        :limit => 40, :null => false
     t.string   "reference"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
   end
 
-  add_index "squid_cards", ["reference"], :name => "index_squid_cards_on_reference"
-  add_index "squid_cards", ["uid"], :name => "index_squid_cards_on_uid", :unique => true
+  add_index "yet_another_kards", ["reference"], :name => "index_yet_another_kards_on_reference"
+  add_index "yet_another_kards", ["uid"], :name => "index_yet_another_kards_on_uid", :unique => true
 
 end

@@ -15,7 +15,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: squidcard-service_development
+  database: yak-service_development
   pool: 5
   host: localhost
   username: root
@@ -42,7 +42,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: squidcard-service_test
+  database: yak-service_test
   pool: 5
   host: localhost
   username: root

@@ -1,4 +1,4 @@
-class SquidCard < ActiveRecord::Base
+class YetAnotherKard < ActiveRecord::Base
   attr_accessible :uid, :reference
 
   validates :uid,       presence: true, uniqueness: true

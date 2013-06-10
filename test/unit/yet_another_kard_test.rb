@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SquidCardTest < ActiveSupport::TestCase
+class YetAnotherKardTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

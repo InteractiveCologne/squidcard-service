@@ -17,12 +17,12 @@ class Event < ActiveRecord::Base
     errors = {}
 
     # Load Card by UID
-    card = SquidCard.find_by_uid card_uid unless card_uid.nil?
+    card = YetAnotherKard.find_by_uid card_uid unless card_uid.nil?
 
     # Needs resource but does not have it
     errors[:resource] = 'Resource is required but missing.' if resource.nil? and self.resource
     # Needs Card but does not have it
-    errors[:squidcard] = 'Squidcard-UID is required but missing.' if card.nil? and self.card_uid
+    errors[:yak] = 'YetAnotherKard-UID is required but missing.' if card.nil? and self.card_uid
 
     errors[:method] = "Method #{self.method.upcase} does not match [GET POST]" unless [:get, :post].include? self.method.to_sym
 
@@ -30,7 +30,7 @@ class Event < ActiveRecord::Base
       options = {}
 
       # assemble Options
-      options[:squidcard_uid] = card.uid if self.card_uid
+      options[:yak_uid] = card.uid if self.card_uid
       options[:resource] = resource if self.resource
 
       # Do call the Event-Service here

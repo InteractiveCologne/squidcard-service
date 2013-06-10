@@ -1,4 +1,4 @@
-SquidcardService::Application.routes.draw do
+YAKService::Application.routes.draw do
   devise_for :admins
 
   root to: "events#index"

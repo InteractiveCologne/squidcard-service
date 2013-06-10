@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-SquidcardService::Application.load_tasks
+YAKService::Application.load_tasks
