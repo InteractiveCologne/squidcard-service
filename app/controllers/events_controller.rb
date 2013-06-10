@@ -9,7 +9,6 @@ class EventsController < ApplicationController
   end
 
   def index
-    Rails.logger.debug @events.inspect
   end
 
   def show
@@ -64,10 +63,10 @@ class EventsController < ApplicationController
   def send_response(response)
     respond_to do |format|
       format.json do
-        render :json => {result: (response[:errors].blank? ? true : false), response: response}.to_json
+        render :json => {success: (response[:errors].blank? ? :true : false)}.merge(response).to_json
       end
       format.xml do
-        render :xml => {result: (response[:errors].blank? ? true : false), response: response}.to_xml
+        render :xml => {success: (response[:errors].blank? ? :true : false)}.merge(response).to_xml
       end
       format.html {render :file => 'public/404.html', :status => :not_found, :layout => false}
     end

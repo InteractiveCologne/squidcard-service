@@ -35,10 +35,28 @@ class Event < ActiveRecord::Base
 
       # Do call the Event-Service here
       begin
-        response = self.class.send(method.to_sym, self.url, options)
+        response = self.class.send(
+          method.to_sym,
+          self.url,
+          {
+            body: options,
+            headers: {
+              'ContentType' => 'application/json',
+              'Accept' => 'application/json'
+            }
+          }
+        )
 
         if response.code == 200
-          result = {response: response.body}
+          parsed_response = JSON.parse(response.body).symbolize_keys
+
+
+          if parsed_response[:success]
+            parsed_response.delete(:success)
+            result = parsed_response
+          else
+            result = {errors: parsed_response[:errors]}
+          end
         else
           result = {errors: "Response from Webservice: #{response.code} - #{response.message}".strip}
         end
