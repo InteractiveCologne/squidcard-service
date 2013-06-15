@@ -35,6 +35,9 @@ class Event < ActiveRecord::Base
 
       # Do call the Event-Service here
       begin
+
+        logger.info "Calling URL: '#{self.url}' with '#{options}'"
+
         response = self.class.send(
           method.to_sym,
           self.url,
@@ -70,7 +73,6 @@ class Event < ActiveRecord::Base
 
     return result
   end
-
   protected
 
   def create_event_key
