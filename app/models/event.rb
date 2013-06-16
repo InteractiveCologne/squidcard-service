@@ -70,6 +70,8 @@ class Event < ActiveRecord::Base
       result = {errors: errors}
     end
 
+    logger.info "Result: #{result}"
+
 
     return result
   end
