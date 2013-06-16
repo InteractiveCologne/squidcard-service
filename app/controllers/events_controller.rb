@@ -44,15 +44,20 @@ class EventsController < ApplicationController
 
   def checkin
     event = Event.find_by_key params[:event_key] unless params[:event_key].nil?
+    kard = YetAnotherKard.find_by_uid params[:card_uid]
 
-    unless event.nil?
+    unless event.nil? or kard.nil?
       send_response event.checkin(params[:card_uid], params[:resource])
     else
       errors = Hash.new
 
       # check if Event is valid
-      errors[:event] = "Event-Key is missing" if params[:event_key].nil?
-      errors[:event] = "Event-Key is incorrect" if event.nil? and params[:event_key].present?
+      errors[:yak] = "Event-Key is missing" if params[:event_key].nil?
+      errors[:yak] = "Event-Key is not found" if event.nil? and params[:event_key].present?
+
+      # check if Kard is valid
+      errors[:event] = "Kard-Key is missing" if params[:card_uid].nil?
+      errors[:event] = "Kard-Key is not found" if kard.nil? and params[:card_uid].present?
 
       send_response({errors: errors})
     end
