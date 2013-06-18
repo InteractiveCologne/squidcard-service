@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
-  before_filter :authenticate_admin!, except: :checkin
-  load_and_authorize_resource except: :checkin
-  skip_before_filter :verify_authenticity_token, only: :checkin
+  before_filter :authenticate_admin!, except: [:checkin, :activate]
+  load_and_authorize_resource except: [:checkin, :activate]
+  skip_before_filter :verify_authenticity_token, only: [:checkin, :activate]
 
   # Tell CanCan to use current_admin instead of current_user
   def current_ability
@@ -61,6 +61,12 @@ class EventsController < ApplicationController
 
       send_response({errors: errors})
     end
+  end
+
+  def activate
+    kard = YetAnotherKard.find_or_create_by_uid params[:card_uid]
+
+    send_response{{kard: kard}}
   end
 
   protected
