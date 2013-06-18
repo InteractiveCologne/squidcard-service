@@ -66,7 +66,7 @@ class EventsController < ApplicationController
   def activate
     kard = YetAnotherKard.find_or_create_by_uid params[:card_uid]
 
-    send_response {kard: kard}
+    send_response({kard: kard})
   end
 
   protected
